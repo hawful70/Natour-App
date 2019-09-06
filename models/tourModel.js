@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
+// const User = require('./userModel');
 // const validator = require('validator');
 
 const tourSchema = new mongoose.Schema(
@@ -80,6 +81,7 @@ const tourSchema = new mongoose.Schema(
       default: false
     },
     startLocation: {
+      // GeoJSON
       type: {
         type: String,
         default: 'Point',
@@ -115,6 +117,7 @@ const tourSchema = new mongoose.Schema(
   }
 );
 
+// tourSchema.index({ price: 1 });
 tourSchema.index({ price: 1, ratingsAverage: -1 });
 tourSchema.index({ slug: 1 });
 tourSchema.index({ startLocation: '2dsphere' });
@@ -142,7 +145,18 @@ tourSchema.pre('save', function(next) {
 //   next();
 // });
 
+// tourSchema.pre('save', function(next) {
+//   console.log('Will save document...');
+//   next();
+// });
+
+// tourSchema.post('save', function(doc, next) {
+//   console.log(doc);
+//   next();
+// });
+
 // QUERY MIDDLEWARE
+// tourSchema.pre('find', function(next) {
 tourSchema.pre(/^find/, function(next) {
   this.find({ secretTour: { $ne: true } });
 
@@ -165,12 +179,12 @@ tourSchema.post(/^find/, function(docs, next) {
 });
 
 // AGGREGATION MIDDLEWARE
-tourSchema.pre('aggregate', function(next) {
-  this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
+// tourSchema.pre('aggregate', function(next) {
+//   this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
 
-  console.log(this.pipeline());
-  next();
-});
+//   console.log(this.pipeline());
+//   next();
+// });
 
 const Tour = mongoose.model('Tour', tourSchema);
 
