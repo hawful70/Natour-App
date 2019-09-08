@@ -27,3 +27,4 @@ yarn-error.log*
 server/server/log
 .vs
 node_modules
+.cache
