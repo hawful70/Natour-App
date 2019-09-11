@@ -47,6 +47,7 @@
     "ndb": "^1.1.4",
     "nodemailer": "^6.3.0",
     "parcel-bundler": "^1.12.3",
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "sharp": "^0.23.0"
   }
 }
